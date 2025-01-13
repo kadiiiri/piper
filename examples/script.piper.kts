@@ -6,14 +6,14 @@ import dsl.pipe
 import dsl.pipeline
 import dsl.specify
 import operator.kubernetes.KubernetesJobOperator
-import java.nio.file.Path
+import java.nio.file.Path.of
 
-val script1 = Path.of("examples/scripts/script1.py")
-val script2 = Path.of("examples/scripts/script2.sh")
-val script3 = Path.of("examples/scripts/script3.sh")
-val script4 = Path.of("examples/scripts/script4.sh")
-val script5 = Path.of("examples/scripts/script5.sh")
-val script6 = Path.of("examples/scripts/script6.kts")
+val script1 = of("examples/scripts/script1.py")
+val script2 = of("examples/scripts/script2.sh")
+val script3 = of("examples/scripts/script3.sh")
+val script4 = of("examples/scripts/script4.sh")
+val script5 = of("examples/scripts/script5.sh")
+val script6 = of("examples/scripts/script6.kts")
 
 val op1 = KubernetesJobOperator("first", "python", listOf("python"), listOf("/scripts/script1.py"), script1)
 val op2 = KubernetesJobOperator("second", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script2.sh"), script2)
