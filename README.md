@@ -1,6 +1,6 @@
 # Piper
 
-Piper is a very rough on the edges tool to create pipelines that consist of a operators that execute the desired script.
+Piper is a very rough on the edges tool to create pipelines that consist of operators that execute the desired script.
 
 The idea is that any type of Operator that under the hood leverages a Kubernetes resource can be executed in a certain 
 order that the user indicates.
