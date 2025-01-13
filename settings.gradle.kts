@@ -12,3 +12,5 @@ plugins {
 
 rootProject.name = "piper"
 include("def")
+include("host")
+
