@@ -7,6 +7,7 @@ import dsl.pipeline
 import dsl.specify
 import operator.kubernetes.KubernetesJobOperator
 import java.nio.file.Path.of
+import kotlin.collections.listOf
 
 val script1 = of("examples/scripts/script1.py")
 val script2 = of("examples/scripts/script2.sh")
@@ -24,7 +25,7 @@ val op6 = KubernetesJobOperator("sixth", "kscripting/kscript", listOf("kscript")
 
 val pipeline = pipeline {
     specify {
-        op1 pipe kotlin.collections.listOf(op2 pipe op3, op4) pipe op5 pipe op6
+        op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
     }
 }
 

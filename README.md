@@ -47,7 +47,7 @@ Declare the specification of your pipeline using the library of piper:
 ```kotlin
 val pipeline = pipeline {
     specify {
-        op1 pipe kotlin.collections.listOf(op2 pipe op3, op4) pipe op5 pipe op6
+        op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
     }
 }
 ```
