@@ -1,5 +1,7 @@
 # Piper
 
+*Keep in mind that this project is still only in a POC state*
+
 Piper is a very rough on the edges tool to create pipelines that consist of operators that execute the desired script.
 
 The idea is that any type of Operator that under the hood leverages a Kubernetes resource can be executed in a certain 
