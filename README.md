@@ -52,9 +52,18 @@ val pipeline = pipeline {
 }
 ```
 
-Run it!
+Declare that this pipeline should be ran and visualized.
 
 ```kotlin
 pipeline.visualize()
 pipeline.run()
 ```
+
+Now since this script has already been defined here `examples/script.piper.kts` we can just run 
+`host/src/main/kotlin/Piper.kt` with an argument on the filepath `examples/script.piper.kts`.
+
+![img.png](docs/assets/run-config.png)
+
+Once you run it, you should be able to see that the KubernetesJobOperators you've defined are running.
+You can use a tool like `kubectl` or `k9s` to view the execution of each job/pod.
+
