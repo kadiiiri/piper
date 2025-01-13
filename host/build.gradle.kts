@@ -5,11 +5,14 @@ plugins {
 group = "com.github"
 version = "unspecified"
 
+val kotlinVersion: String by rootProject.extra
+
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-scripting-common")
-    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm")
-    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host")
     implementation(project(":def"))
+
+    implementation("org.jetbrains.kotlin:kotlin-scripting-common:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host:${kotlinVersion}")
     testImplementation(kotlin("test"))
 }
 
