@@ -4,14 +4,14 @@ import dsl.pipe
 import dsl.pipeline
 import dsl.specify
 import operator.kubernetes.KubernetesJobOperator
-//import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Disabled
 import kotlin.io.path.toPath
 import kotlin.test.Test
 
 class PipelineIntegrationTest {
 
     @Test
-//    @Disabled("Only run this integration test to try out the application.")
+    @Disabled("Only run this integration test to try out the application.")
     fun test() {
         val script1 = javaClass.getResource("/scripts/script1.py")!!.toURI().toPath()
         val script2 = javaClass.getResource("/scripts/script2.sh")!!.toURI().toPath()
