@@ -1,3 +1,5 @@
+// This is merely here because for now it is easier to construct this script with help of the IDE
+// TODO: Make it so that the examples/script.piper.kts file also has proper dependency detection.
 import dsl.pipe
 import dsl.pipeline
 import dsl.specify
