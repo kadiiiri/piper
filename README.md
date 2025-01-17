@@ -1,18 +1,18 @@
 # Piper
 
-Piper is a very rough on the edges tool to create pipelines that consist of a operators that execute the desired script.
+*Keep in mind that this project is still only in a POC state*
 
-The idea is that any type of Operator that under the hood leverages a Kubernetes resource can be executed in a certain 
-order that the user indicates.
+Piper is an early-stage tool designed for building pipelines consisting of operators that execute user-defined scripts. While still in development, the tool aims to provide a structured approach for creating and managing pipelines.
 
-To make this very simple for the end user Piper leverages a Kotlin DSL that can help creating pipelines very easily.
+The core concept is to enable the execution of any type of operator that, under the hood, utilizes a `Kubernetes resource`. These operators can be executed in a specific sequence defined by the user.
 
-In the `examples/script.piper.kts` file you can find a demonstration of how Piper can deal with multiple operators in 
-a nice and neat language.
-Piper detects all files that end with the extension `[somefilename].piper.kts` and allows using the dependencies 
-of piper's core library.
+To simplify the pipeline creation process, Piper employs a Kotlin DSL (Domain-Specific Language). This DSL makes it easy for users to define pipelines intuitively and efficiently.
 
-Here's a short demonstration for documentation purposes:
+An example pipeline can be found in the `examples/script.piper.kts` file. This demonstrates how **Piper** facilitates the orchestration of multiple operators in a clean and user-friendly syntax. Piper strictly detects files with the `.piper.kts` extension and supports the use of dependencies from Piper’s core library.
+
+For instance, you can declare and include a Python script (e.g., script.py) or scripts in other languages such as Bash or KScript.
+
+Below is a brief demonstration to serve as documentation:
 
 Declare for instance python script called `script.py` or any other language (eg. bash, kscript,...)
 
