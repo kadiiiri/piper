@@ -2,7 +2,7 @@ package pipeline
 
 import operator.Operator
 
-class Pipeline {
+class Pipeline(val id: String) {
     private var rootOperator: Operator? = null
 
     fun addOperator(operator: Operator) {

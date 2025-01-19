@@ -3,16 +3,11 @@ package dsl
 import operator.Operator
 import pipeline.Pipeline
 
-fun pipeline(specify: Pipeline.() -> Unit): Pipeline {
-    val pipeline = Pipeline()
-    pipeline.specify()
+fun pipeline(id: String, specify: Pipeline.() -> Operator): Pipeline {
+    val pipeline = Pipeline(id)
+    val rootOperator = pipeline.specify()
+    pipeline.addOperator(rootOperator)
     return pipeline
-}
-
-infix fun Pipeline.specify(specification: Pipeline.() -> Operator): Operator {
-    val rootOperator = this.specification()
-    addOperator(rootOperator)
-    return rootOperator
 }
 
 infix fun Operator.pipe(next: List<Operator>): Operator {

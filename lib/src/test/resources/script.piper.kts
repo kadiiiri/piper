@@ -2,7 +2,6 @@
 // TODO: Make it so that the examples/script.piper.kts file also has proper dependency detection.
 import dsl.pipe
 import dsl.pipeline
-import dsl.specify
 import operator.kubernetes.KubernetesJobOperator
 import java.nio.file.Path
 
@@ -21,10 +20,8 @@ val op4 = KubernetesJobOperator("fourth", "ubuntu:latest", listOf("/bin/sh"), li
 val op5 = KubernetesJobOperator("fifth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script5.sh"), script5)
 val op6 = KubernetesJobOperator("sixth", "kscripting/kscript", listOf("kscript"), listOf("/scripts/script6.kts"), script6)
 
-val pipeline = pipeline {
-    specify {
-        op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
-    }
+val pipeline = pipeline("test_pipeline") {
+    op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
 }
 
 pipeline.visualize()

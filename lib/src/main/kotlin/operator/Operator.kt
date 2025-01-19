@@ -3,7 +3,7 @@ package operator
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging.logger
 
-abstract class Operator(private val name: String) {
+abstract class Operator(private val id: String) {
     abstract fun execute()
 
     protected val log: KLogger = logger {}
@@ -18,11 +18,11 @@ abstract class Operator(private val name: String) {
     }
 
     fun logTree(indent: String = "") {
-        log.info { "$indent$name" }
+        log.info { "$indent$id" }
         children.forEach { it.logTree("$indent  ") }
     }
 
     override fun toString(): String {
-        return name
+        return id
     }
 }

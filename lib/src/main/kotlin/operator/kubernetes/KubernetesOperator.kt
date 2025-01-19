@@ -7,31 +7,31 @@ import util.appendUID
 import java.nio.file.Path
 
 abstract class KubernetesOperator(
-    private val name: String,
+    private val id: String,
     private val image: String,
     private val command: List<String>,
     private val args: List<String>,
     private val script: Path,
-): Operator(name) {
-    val resourceName = name.appendUID()
+): Operator(id) {
+    val resourceName = id.appendUID()
 }
 
 class KubernetesJobOperator(
-    private val name: String,
+    private val id: String,
     private val image: String,
     private val command: List<String>,
     private val args: List<String>,
     private val script: Path
-) : KubernetesOperator(name, image, command, args, script) {
+) : KubernetesOperator(id, image, command, args, script) {
     private val kubeAdapter = KubeJobAdapter()
 
     override fun execute() {
-        log.info { "Starting execution of operator '$name' with image '$image' and script '$script'" }
+        log.info { "Starting execution of operator '$id' with image '$image' and script '$script'" }
 
         val runConfig = RunConfig(resourceName, image, command, args, emptyMap(), script)
 
         kubeAdapter.run(runConfig)
-        kubeAdapter.awaitCompletion(resourceName)
+        kubeAdapter.awaitCompletion(resourceName) // TODO: Employ various strategies (eg. parallelism, no awaiting,..)
         children.forEach { it.execute() }
     }
 }
