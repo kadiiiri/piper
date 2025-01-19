@@ -5,6 +5,7 @@ import java.io.File
 import kotlin.script.experimental.api.EvaluationResult
 import kotlin.script.experimental.api.ResultWithDiagnostics
 import kotlin.script.experimental.api.ScriptDiagnostic
+import kotlin.script.experimental.api.valueOrThrow
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
@@ -31,6 +32,8 @@ fun main(args: Array<String>) {
             println(" : ${it.message}" + if (it.exception == null) "" else ": ${it.exception}")
         }
     }
+
+    println("Script with path ${args[0]} has run successfully with following output: ${res.valueOrThrow().returnValue}")
 }
 
 fun evalFile(scriptFile: File): ResultWithDiagnostics<EvaluationResult> {
