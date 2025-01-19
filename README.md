@@ -1,5 +1,4 @@
 # Piper
-https://github.com/OWNER/REPOSITORY/actions/workflows/WORKFLOW-FILE/badge.svg
 
 ![Build Gradle](https://github.com/kadiiiri/piper/actions/workflows/build-gradle.yml/badge.svg)
 
