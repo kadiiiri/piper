@@ -16,8 +16,6 @@ class KubeJobAdapter(private val namespace: String = "default") : KubeAdapter(na
     override fun run(runConfig: RunConfig): V1Job {
 
         val configMapName = "${runConfig.resourceName}-script-config";
-
-        deleteConfigMap(configMapName)
         createConfigMap(configMapName, runConfig.script)
 
         val jobDefinition = Job(
