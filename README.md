@@ -45,7 +45,7 @@ val op6 = KubernetesJobOperator("sixth", "kscripting/kscript", listOf("kscript")
 Declare the specification of your pipeline using the library of piper:
 
 ```kotlin
-val pipeline = pipeline {
+val pipeline = pipeline("test_pipeline") {
     op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
 }
 ```
