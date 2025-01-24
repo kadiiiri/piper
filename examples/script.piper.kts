@@ -1,10 +1,9 @@
 // TODO: Fix IDE not recognizing dependencies
 
-import dsl.pipe
-import dsl.pipeline
-import operator.kubernetes.KubernetesJobOperator
-import kotlin.collections.listOf
-import java.nio.file.Path
+import java.nio.file.Path;
+import com.github.piper.dsl.pipe
+import com.github.piper.dsl.pipeline
+import com.github.piper.operator.kubernetes.KubernetesJobOperator
 
 val script1 = Path.of("examples/scripts/script1.py")
 val script2 = Path.of("examples/scripts/script2.sh")
