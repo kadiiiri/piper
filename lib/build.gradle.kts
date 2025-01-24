@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.github"
+group = "com.github.piper"
 version = "unspecified"
 
 val kubernetesVersion: String by rootProject.extra

@@ -1,8 +1,8 @@
 package pipeline
 
-import dsl.pipe
-import dsl.pipeline
-import operator.kubernetes.KubernetesJobOperator
+import com.github.piper.dsl.pipe
+import com.github.piper.dsl.pipeline
+import com.github.piper.operator.kubernetes.KubernetesJobOperator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
 import kotlin.io.path.toPath
