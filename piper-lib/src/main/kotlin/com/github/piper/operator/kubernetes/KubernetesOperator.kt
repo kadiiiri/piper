@@ -1,38 +1,41 @@
 package com.github.piper.operator.kubernetes
 
-import com.github.piper.kubernetes.adapter.KubeJobAdapter
-import com.github.piper.kubernetes.run.RunConfig
+import com.github.piper.kubernetes.executors.ExecutorRequest
+import com.github.piper.kubernetes.executors.K8sExecutor
 import com.github.piper.operator.Operator
 import com.github.piper.util.appendUID
 import java.nio.file.Path
 
-abstract class KubernetesOperator(
+class KubernetesOperator(
     private val id: String,
     private val image: String,
     private val command: List<String>,
     private val args: List<String>,
     private val script: Path,
 ): Operator(id) {
-    val resourceName = id.appendUID()
-}
-
-class KubernetesJobOperator(
-    private val id: String,
-    private val image: String,
-    private val command: List<String>,
-    private val args: List<String>,
-    private val script: Path
-) : KubernetesOperator(id, image, command, args, script) {
-    private val kubeAdapter = KubeJobAdapter()
+    val name = id.appendUID()
 
     override fun execute() {
         log.info { "Starting execution of operator '$id' with image '$image' and script '$script'" }
 
-        val runConfig = RunConfig(resourceName, image, command, args, emptyMap(), script)
+        // TODO: Delegate these constants to user input, with some default constants defined somewhere else.
 
-        kubeAdapter.run(runConfig)
-        kubeAdapter.awaitCompletion(resourceName) // TODO: Employ various strategies (eg. parallelism, no awaiting,..)
+        val executorRequest = ExecutorRequest(
+            name = name,
+            image = image,
+            command = command,
+            args = args,
+            script = script,
+            minCpuCores = 4.0,
+            minMemory = 1000.0,
+            maxCpuCores = 4.0,
+            maxMemory = 1000.0,
+        )
+
+        val k8sExecutor = K8sExecutor(executorRequest)
+
+        k8sExecutor.execute()
+
         children.forEach { it.execute() }
     }
 }
-

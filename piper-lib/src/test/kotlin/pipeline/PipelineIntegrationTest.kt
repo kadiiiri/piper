@@ -2,7 +2,7 @@ package pipeline
 
 import com.github.piper.dsl.pipe
 import com.github.piper.dsl.pipeline
-import com.github.piper.operator.kubernetes.KubernetesJobOperator
+import com.github.piper.operator.kubernetes.KubernetesOperator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
 import kotlin.io.path.toPath
@@ -23,12 +23,12 @@ class PipelineIntegrationTest {
         val script5 = javaClass.getResource("/scripts/script5.sh")!!.toURI().toPath()
         val script6 = javaClass.getResource("/scripts/script6.kts")!!.toURI().toPath()
 
-        val op1 = KubernetesJobOperator("first", "python", listOf("python"), listOf("/scripts/script1.py"), script1)
-        val op2 = KubernetesJobOperator("second", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script2.sh"), script2)
-        val op3 = KubernetesJobOperator("third", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script3.sh"), script3)
-        val op4 = KubernetesJobOperator("fourth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script4.sh"), script4)
-        val op5 = KubernetesJobOperator("fifth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script5.sh"), script5)
-        val op6 = KubernetesJobOperator("sixth", "kscripting/kscript", listOf("kscript"), listOf("/scripts/script6.kts"), script6)
+        val op1 = KubernetesOperator("first", "python", listOf("python"), listOf("/scripts/script1.py"), script1)
+        val op2 = KubernetesOperator("second", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script2.sh"), script2)
+        val op3 = KubernetesOperator("third", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script3.sh"), script3)
+        val op4 = KubernetesOperator("fourth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script4.sh"), script4)
+        val op5 = KubernetesOperator("fifth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script5.sh"), script5)
+        val op6 = KubernetesOperator("sixth", "kscripting/kscript", listOf("kscript"), listOf("/scripts/script6.kts"), script6)
 
         val pipeline = pipeline(pipelineId) {
             op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
