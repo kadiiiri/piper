@@ -4,13 +4,14 @@ import com.github.piper.dsl.pipe
 import com.github.piper.dsl.pipeline
 import com.github.piper.operator.kubernetes.KubernetesOperator
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import kotlin.io.path.toPath
 import kotlin.test.Test
 
 class PipelineIntegrationTest {
 
     @Test
-//    @Disabled("Only run this integration test to try out the application.")
+    @Disabled("Only run this integration test to try out the application.")
     fun test() {
 
         val pipelineId = "test_pipeline"
