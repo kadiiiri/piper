@@ -11,6 +11,10 @@ plugins {
 
 
 rootProject.name = "piper"
-include("piper-definition")
-include("piper-host")
-include("piper-lib")
+
+include(
+    "piper-definition",
+    "piper-host",
+    "piper-lib",
+    "piper-web",
+)
