@@ -11,7 +11,7 @@ val slf4jSimpleVersion: String by rootProject.extra
 val kotlinCoroutinesVersion: String by rootProject.extra
 
 dependencies {
-    implementation("io.kubernetes:client-java:${kubernetesVersion}")
+    implementation("io.fabric8:openshift-client:${kubernetesVersion}")
     implementation("io.github.oshai:kotlin-logging:${kotlinLoggingVersion}")
     implementation("org.slf4j:slf4j-simple:${slf4jSimpleVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
