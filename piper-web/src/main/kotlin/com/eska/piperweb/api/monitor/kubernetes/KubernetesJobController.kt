@@ -1,6 +1,6 @@
 package com.eska.piperweb.api.monitor.kubernetes
 
-import com.eska.piperweb.core.domain.usecases.FindKubernetesJobUseCase
+import com.eska.piperweb.core.usecase.FindKubernetesJobUseCase
 import io.fabric8.kubernetes.api.model.batch.v1.Job
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse

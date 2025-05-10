@@ -24,4 +24,4 @@ val pipeline = pipeline("test_pipeline") {
 }
 
 pipeline.visualize()
-pipeline.run()
+pipeline.activate()

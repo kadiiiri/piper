@@ -1,8 +1,8 @@
 package com.eska.piperweb.api.monitor.jobs
 
 import com.eska.piperweb.adapter.database.entities.Job
-import com.eska.piperweb.core.domain.usecases.FindAllJobsUseCase
-import com.eska.piperweb.core.domain.usecases.FindJobByNameUseCase
+import com.eska.piperweb.core.usecase.FindAllJobsUseCase
+import com.eska.piperweb.core.usecase.FindJobByNameUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.ArraySchema

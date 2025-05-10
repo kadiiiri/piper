@@ -1,4 +1,4 @@
-package com.eska.piperweb.core.domain.usecases
+package com.eska.piperweb.core.usecase
 
 import io.fabric8.kubernetes.api.model.batch.v1.Job
 

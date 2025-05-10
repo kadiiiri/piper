@@ -1,9 +1,10 @@
 package com.eska.piperweb.adapter.kubernetes
 
+import com.eska.piperweb.adapter.kubernetes.view.JobView
 import com.eska.piperweb.core.domain.JobStatus
-import com.eska.piperweb.core.domain.usecases.DeleteJobUseCase
-import com.eska.piperweb.core.domain.usecases.SaveJobUseCase
-import com.eska.piperweb.core.domain.usecases.UpdateJobUseCase
+import com.eska.piperweb.core.usecase.DeleteJobUseCase
+import com.eska.piperweb.core.usecase.SaveJobUseCase
+import com.eska.piperweb.core.usecase.UpdateJobUseCase
 import io.fabric8.kubernetes.api.model.batch.v1.Job
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.Watcher
@@ -20,14 +21,7 @@ import javax.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
-data class JobView(
-    val id: UUID,
-    val name: String,
-    val namespace: String,
-    val creationTimeStamp: String,
-    val startTime: String,
-    val status: JobStatus
-)
+
 
 @Component
 class JobMonitor(

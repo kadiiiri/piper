@@ -1,7 +1,7 @@
-package com.eska.piperweb.core.domain.usecases
+package com.eska.piperweb.core.usecase
 
 import com.eska.piperweb.adapter.database.entities.Job
-import com.eska.piperweb.adapter.kubernetes.JobView
+import com.eska.piperweb.adapter.kubernetes.view.JobView
 
 interface FindAllJobsUseCase {
     fun findAll(): List<Job>

@@ -1,24 +1,29 @@
 package com.github.piper.pipeline
 
-import com.github.piper.operator.Operator
+import com.github.piper.operator.Task
+import java.time.Duration
 
 class Pipeline(val id: String) {
-    private var rootOperator: Operator? = null
+    var rootTask: Task? = null
+    var timeout: Duration? = null
+    var retries: Int = 0
 
-    fun addOperator(operator: Operator) {
-        if (rootOperator == null) {
-            rootOperator = operator
+    fun addTask(task: Task) {
+        if (rootTask == null) {
+            rootTask = task
         } else {
-            rootOperator!!.addChild(operator)
+            rootTask!!.addChild(task)
         }
     }
 
-    fun run() {
-        requireNotNull(rootOperator) { "No operators defined for this pipeline." }
-        rootOperator!!.execute()
+    fun activate(): Pipeline {
+        requireNotNull(rootTask) { "No operators defined for this pipeline." }
+        rootTask!!.execute()
+        return this
     }
 
-    fun visualize() {
-        rootOperator?.logTree()
+    fun visualize(): Pipeline {
+        rootTask?.logTree()
+        return this
     }
 }
