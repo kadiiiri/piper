@@ -1,13 +1,27 @@
 package com.github.piper
 
-import kotlinx.coroutines.runBlocking
 import kotlin.script.experimental.annotations.KotlinScript
-import kotlin.script.experimental.api.*
-import kotlin.script.experimental.dependencies.*
+import kotlin.script.experimental.api.ResultWithDiagnostics
+import kotlin.script.experimental.api.ScriptCollectedData
+import kotlin.script.experimental.api.ScriptCompilationConfiguration
+import kotlin.script.experimental.api.ScriptConfigurationRefinementContext
+import kotlin.script.experimental.api.asSuccess
+import kotlin.script.experimental.api.collectedAnnotations
+import kotlin.script.experimental.api.defaultImports
+import kotlin.script.experimental.api.dependencies
+import kotlin.script.experimental.api.onSuccess
+import kotlin.script.experimental.api.refineConfiguration
+import kotlin.script.experimental.api.with
+import kotlin.script.experimental.dependencies.CompoundDependenciesResolver
+import kotlin.script.experimental.dependencies.DependsOn
+import kotlin.script.experimental.dependencies.FileSystemDependenciesResolver
+import kotlin.script.experimental.dependencies.Repository
 import kotlin.script.experimental.dependencies.maven.MavenDependenciesResolver
+import kotlin.script.experimental.dependencies.resolveFromScriptSourceAnnotations
 import kotlin.script.experimental.jvm.JvmDependency
 import kotlin.script.experimental.jvm.dependenciesFromCurrentContext
 import kotlin.script.experimental.jvm.jvm
+import kotlinx.coroutines.runBlocking
 
 @KotlinScript(
     displayName = "Piper DSL",
@@ -19,6 +33,7 @@ abstract class PiperScript
 object PiperConfiguration : ScriptCompilationConfiguration(
     {
         defaultImports(DependsOn::class, Repository::class)
+        defaultImports("com.github.piper.dsl.*")
 
         jvm {
             dependenciesFromCurrentContext(wholeClasspath = true)

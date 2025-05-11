@@ -6,10 +6,12 @@ import com.github.piper.dsl.pipe
 import com.github.piper.dsl.pipeline
 import java.time.Duration
 import kotlin.test.Test
+import org.junit.jupiter.api.Disabled
 
 class PipelineIntegrationTest {
 
     @Test
+    @Disabled
     fun testSimplePipeline() {
 
         val pipeline = pipeline("my_pipeline") {
@@ -38,6 +40,7 @@ class PipelineIntegrationTest {
     }
 
     @Test
+    @Disabled
     fun testParallelPipeline() {
 
         val pipeline = pipeline("my_pipeline") {

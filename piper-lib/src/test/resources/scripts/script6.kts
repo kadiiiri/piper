@@ -1,1 +1,0 @@
-println("[Kotlin] Running operator 6...")
