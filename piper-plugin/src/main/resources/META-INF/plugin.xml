@@ -1,0 +1,25 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+  <id>com.eska.piper-plugin</id>
+  <name>Piper</name>
+  <vendor>Piper</vendor>
+  <description><![CDATA[Custom Kotlin Scripting support for Piper, enabling seamless integration and advanced scripting features.]]></description>
+  <depends>com.intellij.modules.platform</depends>
+  <depends>org.jetbrains.kotlin</depends>
+  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.externalSystem</depends>
+  <depends>com.intellij.modules.java</depends>
+  <idea-version since-build="251" until-build="252.*"/>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType
+            name="Piper File"
+            implementationClass="com.github.piper.PiperFileType"
+            fieldName="INSTANCE"
+            language="piper"
+            extensions="piper.kts"/>
+    <internalFileTemplate name="Piper Script" />
+  </extensions>
+  <extensions defaultExtensionNs="org.jetbrains.kotlin">
+    <scriptDefinitionsProvider implementation="com.github.piper.PiperScriptDefinitionProvider" order="first"/>
+  </extensions>
+</idea-plugin>
