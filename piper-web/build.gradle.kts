@@ -30,13 +30,15 @@ val kubernetesVersion: String by rootProject.extra
 
 
 dependencies {
+    implementation(project(":piper-lib"))
+    implementation("ch.qos.logback:logback-core:1.5.18")
+    implementation("ch.qos.logback:logback-classic:1.5.18")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
     implementation("io.fabric8:openshift-client:${kubernetesVersion}")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-batch")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-quartz")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

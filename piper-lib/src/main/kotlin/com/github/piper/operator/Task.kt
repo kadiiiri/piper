@@ -3,7 +3,7 @@ package com.github.piper.operator
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging.logger
 
-abstract class Task(private val id: String) {
+abstract class Task(val name: String) {
     protected var dependsOn: Task? = null
     protected val log: KLogger = logger {}
     protected val children: MutableList<Task> = mutableListOf()
@@ -15,20 +15,13 @@ abstract class Task(private val id: String) {
     }
 
     open fun logTree(indent: String = "") {
-        log.info { "$indent$id" }
+        log.info { "$indent$name" }
         children.forEach { it.logTree("$indent  ") }
     }
 
-
-    /**
-     * This is a temporary method to allow the task to be executed. It will be removed once Pipelines and Tasks are registered as CRDs.
-     */
-    open fun execute() {
-        log.info { "Executing task: $id" }
-        children.forEach { it.execute() }
-    }
+    abstract fun activate(): Any
 
     override fun toString(): String {
-        return id
+        return name
     }
 }

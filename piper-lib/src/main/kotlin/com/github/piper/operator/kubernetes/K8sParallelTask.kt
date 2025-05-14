@@ -3,12 +3,10 @@ package com.github.piper.operator.kubernetes
 import com.github.piper.operator.Task
 
 
-class K8sParallelTask(val name: String, val branches: List<Branch>): Task(name) {
-    override fun execute() {
-        log.info { "Starting execution of parallel task '$name'" }
-        branches.parallelStream().forEach { branch ->
-            branch.getTasks().fold(Unit) { _, task -> (task as K8sTask).execute() }
-        }
+class K8sParallelTask(name: String, private val branches: List<Branch>): Task(name) {
+    override fun activate() {
+        log.info { "Activating parallel task '$name'" }
+        branches.forEach { branch -> branch.getTasks().forEach { it.activate() } }
     }
 }
 

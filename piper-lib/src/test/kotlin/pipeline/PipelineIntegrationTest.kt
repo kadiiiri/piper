@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Disabled
 class PipelineIntegrationTest {
 
     @Test
-    @Disabled
     fun testSimplePipeline() {
 
         val pipeline = pipeline("my_pipeline") {

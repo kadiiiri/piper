@@ -11,14 +11,12 @@ class Pipeline(val id: String) {
     fun addTask(task: Task) {
         if (rootTask == null) {
             rootTask = task
-        } else {
-            rootTask!!.addChild(task)
         }
     }
 
     fun activate(): Pipeline {
         requireNotNull(rootTask) { "No operators defined for this pipeline." }
-        rootTask!!.execute()
+        rootTask!!.activate()
         return this
     }
 
