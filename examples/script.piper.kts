@@ -13,7 +13,7 @@ val pipeline = pipeline("my_pipeline") {
     k8sTask("first") {
         image = "python"
         command = listOf("python")
-        scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script1.py"
+        scriptPath = "./scripts/script1.py"
         resources {
             minMemory = 512.0
             minCpuCores = 4.0
@@ -24,7 +24,7 @@ val pipeline = pipeline("my_pipeline") {
             k8sTask("second") {
                 image = "ubuntu:latest"
                 command = listOf("/bin/sh")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script2.sh"
+                scriptPath = "./scripts/script2.sh"
                 resources {
                     minMemory = 512.0
                     minCpuCores = 4.0
@@ -32,7 +32,7 @@ val pipeline = pipeline("my_pipeline") {
             } pipe k8sTask("third") {
                 image = "ubuntu:latest"
                 command = listOf("/bin/sh")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script3.sh"
+                scriptPath = "./scripts/script3.sh"
                 resources {
                     minMemory = 512.0
                     minCpuCores = 4.0
@@ -44,14 +44,14 @@ val pipeline = pipeline("my_pipeline") {
             k8sTask("fourth") {
                 image = "ubuntu:latest"
                 command = listOf("/bin/sh")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script4.sh"
+                scriptPath = "./scripts/script4.sh"
             }
         }
 
     } pipe k8sTask("fifth") {
         image = "ubuntu:latest"
         command = listOf("/bin/sh")
-        scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script5.sh"
+        scriptPath = "./scripts/script5.sh"
     }
 }
 

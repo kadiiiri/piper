@@ -22,41 +22,70 @@ Declare for instance python script called `script.py` or any other language (eg.
 print('[Python] Running operator 1...')
 ```
 
-Declare the path of your scripts, containing:
+
+Declare the pipeline:
 
 ```kotlin
-val script1 = Path.of("examples/scripts/script1.py")
-val script2 = Path.of("examples/scripts/script2.sh")
-val script3 = Path.of("examples/scripts/script3.sh")
-val script4 = Path.of("examples/scripts/script4.sh")
-val script5 = Path.of("examples/scripts/script5.sh")
-val script6 = Path.of("examples/scripts/script6.kts")
-```
 
-Declare the operators you would like to run:
+import com.github.piper.dsl.k8sParallelTask
+import com.github.piper.dsl.k8sTask
+import com.github.piper.dsl.pipe
+import com.github.piper.dsl.pipeline
+import java.time.Duration
 
-```kotlin
-val op1 = KubernetesJobOperator("first", "python", listOf("python"), listOf("/scripts/script1.py"), script1)
-val op2 = KubernetesJobOperator("second", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script2.sh"), script2)
-val op3 = KubernetesJobOperator("third", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script3.sh"), script3)
-val op4 = KubernetesJobOperator("fourth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script4.sh"), script4)
-val op5 = KubernetesJobOperator("fifth", "ubuntu:latest", listOf("/bin/sh"), listOf("/scripts/script5.sh"), script5)
-val op6 = KubernetesJobOperator("sixth", "kscripting/kscript", listOf("kscript"), listOf("/scripts/script6.kts"), script6)
-```
+val pipeline = pipeline("my_pipeline") {
+    timeout = Duration.ofHours(2)
+    retries = 3
 
-Declare the specification of your pipeline using the library of piper:
+    k8sTask("first") {
+        image = "python"
+        command = listOf("python")
+        scriptPath = "./scripts/script1.py"
+        resources {
+            minMemory = 512.0
+            minCpuCores = 4.0
+        }
+    } pipe k8sParallelTask {
 
-```kotlin
-val pipeline = pipeline("test_pipeline") {
-    op1 pipe listOf(op2 pipe op3, op4) pipe op5 pipe op6
+        branch {
+            k8sTask("second") {
+                image = "ubuntu:latest"
+                command = listOf("/bin/sh")
+                scriptPath = "./scripts/script2.sh"
+                resources {
+                    minMemory = 512.0
+                    minCpuCores = 4.0
+                }
+            } pipe k8sTask("third") {
+                image = "ubuntu:latest"
+                command = listOf("/bin/sh")
+                scriptPath = "./scripts/script3.sh"
+                resources {
+                    minMemory = 512.0
+                    minCpuCores = 4.0
+                }
+            }
+        }
+
+        branch {
+            k8sTask("fourth") {
+                image = "ubuntu:latest"
+                command = listOf("/bin/sh")
+                scriptPath = "./scripts/script4.sh"
+            }
+        }
+
+    } pipe k8sTask("fifth") {
+        image = "ubuntu:latest"
+        command = listOf("/bin/sh")
+        scriptPath = "./scripts/script5.sh"
+    }
 }
-```
 
-Declare that this pipeline should be ran and visualized.
+pipeline
+    .visualize()
+    .activate()
 
-```kotlin
-pipeline.visualize()
-pipeline.run()
 ```
 
 Now since this script has already been defined here `examples/script.piper.kts` we can just run 

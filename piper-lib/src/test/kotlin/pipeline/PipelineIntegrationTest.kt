@@ -21,7 +21,7 @@ class PipelineIntegrationTest {
             k8sTask("first") {
                 image = "python"
                 command = listOf("python")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script1.py"
+                scriptPath = "src/test/resources/scripts/script1.py"
                 resources {
                     minMemory = 512.0
                     minCpuCores = 250.0
@@ -29,7 +29,7 @@ class PipelineIntegrationTest {
             } pipe k8sTask("fifth") {
                 image = "ubuntu:latest"
                 command = listOf("/bin/sh")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script5.sh"
+                scriptPath = "src/test/resources/scripts/script5.sh"
             }
         }
 
@@ -50,7 +50,7 @@ class PipelineIntegrationTest {
             k8sTask("first") {
                 image = "python"
                 command = listOf("python")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script1.py"
+                scriptPath = "src/test/resources/scripts/script1.py"
                 resources {
                     minMemory = 512.0
                     minCpuCores = 250.0
@@ -61,7 +61,7 @@ class PipelineIntegrationTest {
                     k8sTask("second") {
                         image = "ubuntu:latest"
                         command = listOf("/bin/sh")
-                        scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script2.sh"
+                        scriptPath = "src/test/resources/scripts/script2.sh"
                         resources {
                             minMemory = 512.0
                             minCpuCores = 250.0
@@ -69,7 +69,7 @@ class PipelineIntegrationTest {
                     } pipe k8sTask("third") {
                         image = "ubuntu:latest"
                         command = listOf("/bin/sh")
-                        scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script3.sh"
+                        scriptPath = "src/test/resources/scripts/script3.sh"
                         resources {
                             minMemory = 512.0
                             minCpuCores = 250.0
@@ -81,14 +81,14 @@ class PipelineIntegrationTest {
                     k8sTask("fourth") {
                         image = "ubuntu:latest"
                         command = listOf("/bin/sh")
-                        scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script4.sh"
+                        scriptPath = "src/test/resources/scripts/script4.sh"
                     }
                 }
 
             } pipe k8sTask("fifth") {
                 image = "ubuntu:latest"
                 command = listOf("/bin/sh")
-                scriptPath = "/Users/kadirsirimsi/dev/github/piper/piper-lib/build/resources/test/scripts/script5.sh"
+                scriptPath = "src/test/resources/scripts/script5.sh"
             }
         }
 

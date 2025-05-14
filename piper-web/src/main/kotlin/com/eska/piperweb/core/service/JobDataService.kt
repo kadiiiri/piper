@@ -2,7 +2,7 @@ package com.eska.piperweb.core.service
 
 import com.eska.piperweb.adapter.database.entities.Job
 import com.eska.piperweb.adapter.database.entities.JobDataRepository
-import com.eska.piperweb.adapter.kubernetes.JobView
+import com.eska.piperweb.adapter.kubernetes.view.JobView
 import com.eska.piperweb.core.usecase.DeleteJobUseCase
 import com.eska.piperweb.core.usecase.FindAllJobsUseCase
 import com.eska.piperweb.core.usecase.FindJobByNameUseCase
