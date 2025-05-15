@@ -1,8 +1,8 @@
 package com.eska.piperweb.adapter.database.entities
 
-import com.eska.piperweb.core.domain.JobStatus
-import com.eska.piperweb.core.domain.PipelineStatus.DISABLED
-import com.eska.piperweb.core.domain.PipelineStatus.ENABLED
+import com.eska.piperweb.domain.model.JobStatus
+import com.eska.piperweb.domain.model.PipelineStatus.DISABLED
+import com.eska.piperweb.domain.model.PipelineStatus.ENABLED
 import jakarta.transaction.Transactional
 import java.util.UUID.randomUUID
 import kotlin.test.Test

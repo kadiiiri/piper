@@ -1,29 +1,32 @@
 package com.eska.piperweb.adapter.kubernetes
 
+import com.eska.piperweb.adapter.database.entities.DagRepository
+import com.eska.piperweb.domain.model.DAG
+import com.eska.piperweb.domain.model.ResourceStatus
+import com.eska.piperweb.domain.model.toEntity
 import com.github.piper.kubernetes.crd.DAGResource
-import com.github.piper.kubernetes.crd.TaskResource
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
 import io.fabric8.kubernetes.client.informers.SharedIndexInformer
+import java.time.LocalDateTime
+import java.util.*
 import javax.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class DagInformer(private val client: KubernetesClient) {
+class DagInformer(
+    private val client: KubernetesClient,
+    private val dagRepository: DagRepository
+) {
     private val log = LoggerFactory.getLogger(DagInformer::class.java)
     private val informerFactory = client.informers()
 
+
     @PostConstruct
-    fun watchDags() {
-        setupWatchers()
-    }
-
-    private fun setupWatchers() {
+    fun setup() {
         setupDAGInformer().run()
-        setupTaskInformer().run()
     }
-
 
     fun setupDAGInformer(): SharedIndexInformer<DAGResource> {
         val dagInformer = informerFactory.sharedIndexInformerFor(
@@ -32,8 +35,17 @@ class DagInformer(private val client: KubernetesClient) {
         )
 
         dagInformer.addEventHandler(object : ResourceEventHandler<DAGResource> {
-            override fun onAdd(dag: DAGResource) {
-                log.info("Dag added: ${dag.metadata.name} ${dag.metadata.namespace} ${dag.metadata.resourceVersion}")
+            override fun onAdd(dagResource: DAGResource) {
+                log.info("Dag added: ${dagResource.metadata.name} ${dagResource.metadata.namespace} ${dagResource.metadata.resourceVersion}")
+                val dag = DAG(
+                    id = UUID.randomUUID(),
+                    name = dagResource.spec.name,
+                    createdAt = dagResource.metadata.creationTimestamp.toString(),
+                    status = ResourceStatus.fromString(dagResource.status.status),
+                    scheduledFor = LocalDateTime.now().plusMinutes(30)
+                )
+
+                dagRepository.save(dag.toEntity())
             }
 
             override fun onUpdate(oldDag: DAGResource, newDag: DAGResource) {
@@ -46,30 +58,6 @@ class DagInformer(private val client: KubernetesClient) {
         })
 
         return dagInformer
-    }
-
-    fun setupTaskInformer(): SharedIndexInformer<TaskResource> {
-
-        val taskInformer = informerFactory.sharedIndexInformerFor(
-            TaskResource::class.java,
-            30*1000.toLong()
-        )
-
-        taskInformer.addEventHandler(object : ResourceEventHandler<TaskResource> {
-            override fun onAdd(task: TaskResource) {
-                log.info ("Task added: ${task.metadata.name} ${task.metadata.namespace} ${task.metadata.resourceVersion}")
-            }
-
-            override fun onUpdate(oldTask: TaskResource, newTask: TaskResource) {
-                log.info("Task updated: ${newTask.metadata.name} ${newTask.metadata.namespace} ${newTask.metadata.resourceVersion}")
-            }
-
-            override fun onDelete(task: TaskResource, deletedFinalStateUnknown: Boolean) {
-                log.info("Task deleted: ${task.metadata.name} ${task.metadata.namespace} ${task.metadata.resourceVersion}")
-            }
-        })
-
-        return taskInformer
     }
 }
 
