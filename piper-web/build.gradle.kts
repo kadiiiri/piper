@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.jpa") version "2.1.20"
 }
 
-group = "com.eska"
+group = "com.github.piper"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -31,6 +31,7 @@ val kubernetesVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":piper-lib"))
+    implementation(project(":piper-common"))
     implementation("ch.qos.logback:logback-core:1.5.18")
     implementation("ch.qos.logback:logback-classic:1.5.18")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")

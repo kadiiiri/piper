@@ -1,9 +1,9 @@
 package com.github.piper.dsl
 
-import com.github.piper.operator.kubernetes.Branch
-import com.github.piper.operator.kubernetes.K8sParallelTask
-import com.github.piper.operator.kubernetes.K8sTask
-import com.github.piper.pipeline.Pipeline
+import com.github.piper.domain.task.kubernetes.Branch
+import com.github.piper.domain.task.kubernetes.K8sParallelTask
+import com.github.piper.domain.task.kubernetes.K8sTask
+import com.github.piper.domain.dag.Dag
 import java.nio.file.Paths
 
 class ParallelContext {
@@ -15,7 +15,7 @@ class ParallelContext {
     }
 }
 
-fun Pipeline.k8sParallelTask(block: ParallelContext.() -> Unit): K8sParallelTask {
+fun Dag.k8sParallelTask(block: ParallelContext.() -> Unit): K8sParallelTask {
     val context = ParallelContext().apply(block)
     val parallelTask = K8sParallelTask("parallel", context.branches)
     if (rootTask == null) addTask(parallelTask)

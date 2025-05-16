@@ -1,5 +1,6 @@
 package com.github.piper.kubernetes.crd
 
+import com.github.piper.primitives.kubernetes.K8sTaskResources
 import io.fabric8.kubernetes.client.CustomResource
 import io.fabric8.kubernetes.model.annotation.Group
 import io.fabric8.kubernetes.model.annotation.Version
@@ -15,11 +16,12 @@ data class TaskSpec(
     val command: List<String> = emptyList(),
     val args: List<String> = emptyList(),
     val env: Map<String, String> = emptyMap(),
-    val dependsOn: List<String> = emptyList(),
+    val resources: K8sTaskResources = K8sTaskResources(),
+    val dagRef: String? = null,
+    val dependsOn: String? = null
 )
 
 
 class TaskStatus(
-    val name: String = "",
     val status: String = ""
 )

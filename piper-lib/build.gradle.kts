@@ -17,6 +17,7 @@ val kotlinLoggingVersion: String by rootProject.extra
 val kotlinCoroutinesVersion: String by rootProject.extra
 
 dependencies {
+    implementation(project(":piper-common"))
     implementation("io.fabric8:openshift-client:${kubernetesVersion}")
     implementation("io.github.oshai:kotlin-logging:${kotlinLoggingVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")

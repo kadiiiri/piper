@@ -18,5 +18,6 @@ include(
     "piper-host",
     "piper-lib",
     "piper-web",
-    "piper-plugin"
+    "piper-plugin",
+    "piper-common"
 )
