@@ -1,7 +1,7 @@
 plugins {
   id("java")
   kotlin("jvm")
-  id("org.jetbrains.intellij.platform") version "2.5.0"
+  id("org.jetbrains.intellij.platform") version "2.6.0"
 }
 
 group = "com.github.piper"
