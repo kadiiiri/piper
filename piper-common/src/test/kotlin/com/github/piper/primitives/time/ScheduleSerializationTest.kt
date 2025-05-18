@@ -15,37 +15,30 @@ class ScheduleSerializationTest {
 
     @Test
     fun `test OneOffSchedule serialization and deserialization`() {
-        // Given
         val now = OffsetDateTime.now()
         val schedule = OneOffSchedule(now)
 
-        // When
         val json = objectMapper.writeValueAsString(schedule)
         println("[DEBUG_LOG] Serialized OneOffSchedule: $json")
 
         val deserialized = objectMapper.readValue(json, Schedule::class.java)
         println("[DEBUG_LOG] Deserialized class: ${deserialized.javaClass.simpleName}")
 
-        // Then
         assertEquals(schedule.javaClass, deserialized.javaClass)
-        // Compare the instant values (time in UTC) instead of the OffsetDateTime objects directly
         assertEquals(schedule.start.toInstant(), (deserialized as OneOffSchedule).start.toInstant())
     }
 
     @Test
     fun `test RecurringSchedule serialization and deserialization`() {
-        // Given
         val cronExpression = "0 0 * * *" // Run at midnight every day
         val schedule = RecurringSchedule(cronExpression)
 
-        // When
         val json = objectMapper.writeValueAsString(schedule)
         println("[DEBUG_LOG] Serialized RecurringSchedule: $json")
 
         val deserialized = objectMapper.readValue(json, Schedule::class.java)
         println("[DEBUG_LOG] Deserialized class: ${deserialized.javaClass.simpleName}")
 
-        // Then
         assertEquals(schedule.javaClass, deserialized.javaClass)
         assertEquals(schedule.cron, (deserialized as RecurringSchedule).cron)
     }
