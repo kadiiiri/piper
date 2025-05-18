@@ -1,8 +1,11 @@
-package com.github.piper.kubernetes.resources
+package com.github.piperweb.adapter.kubernetes.executor.job
 
 import com.github.piper.kubernetes.KubernetesDefaults.NAMESPACE
-import io.fabric8.kubernetes.api.model.*
-import java.nio.file.Path
+import io.fabric8.kubernetes.api.model.ConfigMap
+import io.fabric8.kubernetes.api.model.ConfigMapVolumeSource
+import io.fabric8.kubernetes.api.model.ObjectMetaBuilder
+import io.fabric8.kubernetes.api.model.Volume
+import io.fabric8.kubernetes.api.model.VolumeMount
 
 fun createVolume(name: String, configMap: ConfigMapVolumeSource): Volume {
     return Volume().apply {
@@ -25,12 +28,12 @@ fun createVolumeMount(name: String, mountPath: String): VolumeMount {
     }
 }
 
-fun createConfigMap(name: String, script: Path): ConfigMap {
+fun createConfigMap(name: String, script: String, scriptPath: String): ConfigMap {
     return ConfigMap().apply {
         metadata = ObjectMetaBuilder()
             .withName(name)
             .withNamespace(NAMESPACE)
             .build()
-        data = hashMapOf(Pair(script.fileName.toString(), script.toFile().readText()))
+        data = hashMapOf(Pair(scriptPath.split("/").last(), script))
     }
 }

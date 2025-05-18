@@ -3,7 +3,7 @@ package com.github.piperweb.adapter.database.entity
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType.LAZY
+import jakarta.persistence.FetchType.EAGER
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
@@ -23,13 +23,20 @@ data class TaskEntity(
     val status: K8sResourceStatus,
     val startTime: LocalDateTime?,
     val endTime: LocalDateTime?,
-    @OneToOne(cascade = [ALL], fetch = LAZY)
+
+    val image: String,
+    val script: String,
+    val scriptPath: String,
+    val command: List<String>,
+
+    @OneToOne(cascade = [ALL], fetch = EAGER)
     val resources: K8sResourcesEntity,
 
     @JoinColumn(name = "dag_id")
     val dagId: UUID? = null,
 
-    @OneToOne(cascade = [ALL], fetch = LAZY)
+
+    @OneToOne(cascade = [ALL], fetch = EAGER)
     @JoinColumn(name = "parent_id")
     val dependsOn: TaskEntity? = null,
 )

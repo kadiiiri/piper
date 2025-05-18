@@ -14,8 +14,12 @@ object TaskMapper {
         status = K8sResourceStatus.fromString(status.name),
         startTime = startTime,
         endTime = finishedAt,
+        script = script,
+        scriptPath = scriptPath,
+        command = command,
+        image = image,
         resources = resources.toEntity(),
-        dagId = dagId,
+        dagId = dagRef,
         dependsOn = dependsOn?.toEntity(),
     )
 
@@ -26,8 +30,12 @@ object TaskMapper {
         status = K8sResourceStatus.fromString(status.name),
         startTime = startTime,
         finishedAt = endTime,
-        dagId = dagId,
+        script = script,
+        scriptPath = scriptPath,
+        command = command,
+        image = image,
         resources = resources.toModel(),
+        dagRef = dagId!!,
         dependsOn = dependsOn?.toModel(),
     )
 }

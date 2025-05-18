@@ -1,5 +1,7 @@
 package com.github.piper.kubernetes.crd
 
+import com.github.piper.primitives.kubernetes.K8sResourceStatus
+import com.github.piper.primitives.kubernetes.K8sResourceStatus.UNKNOWN
 import com.github.piper.primitives.kubernetes.K8sTaskResources
 import io.fabric8.kubernetes.client.CustomResource
 import io.fabric8.kubernetes.model.annotation.Group
@@ -13,8 +15,9 @@ class TaskResource: CustomResource<TaskSpec, TaskStatus>()
 data class TaskSpec(
     val name: String = "",
     val image: String = "",
+    val script: String? = null,
+    val scriptPath: String? = null,
     val command: List<String> = emptyList(),
-    val args: List<String> = emptyList(),
     val env: Map<String, String> = emptyMap(),
     val resources: K8sTaskResources = K8sTaskResources(),
     val dagRef: String? = null,
@@ -22,6 +25,4 @@ data class TaskSpec(
 )
 
 
-class TaskStatus(
-    val status: String = ""
-)
+class TaskStatus(val status: K8sResourceStatus = UNKNOWN)

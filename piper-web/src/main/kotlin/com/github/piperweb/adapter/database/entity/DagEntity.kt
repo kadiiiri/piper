@@ -1,8 +1,12 @@
 package com.github.piperweb.adapter.database.entity
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 import java.util.*
@@ -16,8 +20,9 @@ data class DagEntity(
     val name: String,
     val createdAt: LocalDateTime,
     val status: K8sResourceStatus,
-    val scheduledFor: LocalDateTime,
+
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinColumn(name = "schedule_id")
+    val schedule: ScheduleEntity,
 )
-
-
 

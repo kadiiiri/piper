@@ -1,4 +1,4 @@
-package com.github.piper.kubernetes.executors
+package com.github.piperweb.adapter.kubernetes.executor.job
 
 import com.github.piper.kubernetes.KubernetesDefaults.API_VERSOON
 import com.github.piper.kubernetes.KubernetesDefaults.BACKOFF_LIMIT
@@ -11,13 +11,15 @@ import com.github.piper.kubernetes.KubernetesDefaults.MEMORY
 import com.github.piper.kubernetes.KubernetesDefaults.MI
 import com.github.piper.kubernetes.KubernetesDefaults.NAMESPACE
 import com.github.piper.kubernetes.KubernetesDefaults.RESTART_POLICY
-import com.github.piper.kubernetes.resources.createConfigMapVolumeSource
-import com.github.piper.kubernetes.resources.createVolume
-import com.github.piper.kubernetes.resources.createVolumeMount
-import io.fabric8.kubernetes.api.model.*
+import io.fabric8.kubernetes.api.model.AffinityBuilder
+import io.fabric8.kubernetes.api.model.EnvVar
+import io.fabric8.kubernetes.api.model.LocalObjectReference
+import io.fabric8.kubernetes.api.model.NodeSelectorRequirement
+import io.fabric8.kubernetes.api.model.NodeSelectorTerm
+import io.fabric8.kubernetes.api.model.Quantity
+import io.fabric8.kubernetes.api.model.ResourceRequirements
 import io.fabric8.kubernetes.api.model.batch.v1.Job
 import io.fabric8.kubernetes.api.model.batch.v1.JobBuilder
-import java.nio.file.Path
 
 data class ExecutorRequest(
     val name: String,
@@ -26,9 +28,9 @@ data class ExecutorRequest(
     val image: String,
     val pullSecret: String? = null,
     val command: List<String>,
-    val args: List<String>,
     val env: Map<String, String> = emptyMap(),
-    val script: Path,
+    val script: String,
+    val scriptPath: String,
 
     // Resources
     val minCpuCores: Double,
@@ -83,7 +85,7 @@ fun ExecutorRequest.build(): Job {
         .withName(name)
         .withImage(image)
         .withCommand(command)
-        .withArgs(args)
+        .withArgs(listOf(volumeMountPath + "/" + scriptPath.split("/").last()))
         .withVolumeMounts(createVolumeMount(volumeName, volumeMountPath))
         .withImagePullPolicy(pullSecret)
         .withResources(ResourceRequirements().apply {

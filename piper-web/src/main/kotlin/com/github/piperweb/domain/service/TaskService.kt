@@ -10,6 +10,7 @@ import com.github.piperweb.domain.usecase.DeleteTaskUseCase
 import com.github.piperweb.domain.usecase.FindAllTasksUseCase
 import com.github.piperweb.domain.usecase.FindTaskByIdUseCase
 import com.github.piperweb.domain.usecase.FindTaskByNameUseCase
+import com.github.piperweb.domain.usecase.FindTasksByDagUseCase
 import com.github.piperweb.domain.usecase.UpdateTaskUseCase
 import java.util.*
 import org.springframework.data.repository.findByIdOrNull
@@ -23,13 +24,16 @@ class TaskService(
     FindAllTasksUseCase,
     CreateTaskUseCase,
     DeleteTaskUseCase,
-    UpdateTaskUseCase {
+    UpdateTaskUseCase,
+    FindTasksByDagUseCase {
 
     override fun findById(taskId: UUID): Task? = taskRepository.findByIdOrNull(taskId)?.toModel()
 
     override fun findByName(name: String): Task? = taskRepository.findByName(name)?.toModel()
 
     override fun findAll(): List<Task> = taskRepository.findAll().map { it.toModel() }
+
+    override fun findByDagId(dagId: UUID): List<Task> = taskRepository.findByDagId(dagId).map { it.toModel() }
 
     override fun create(task: Task): Task = taskRepository.saveAndFlush(task.toEntity()).toModel()
 

@@ -15,6 +15,7 @@ interface DagRepository: JpaRepository<DagEntity, UUID> {
 @Repository
 interface TaskRepository: JpaRepository<TaskEntity, UUID> {
     fun findByName(name: String): TaskEntity?
+    fun findByDagId(dagId: UUID): List<TaskEntity>
     fun deleteByName(name: String)
 }
 

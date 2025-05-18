@@ -9,6 +9,7 @@ class K8sParallelTask(name: String, private val branches: List<Branch>): Task(na
     override fun activate(dagRef: String) {
         log.info("Activating parallel task '$name'")
         branches.forEach { branch -> branch.getTasks().forEach { it.activate(dagRef) } }
+        children.forEach { it.activate(dagRef) }
     }
 }
 

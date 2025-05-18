@@ -6,6 +6,7 @@ enum class K8sResourceStatus {
     DELETED,
 
     AWAITING_EXECUTION,
+    FINISHED,
     UNKNOWN
     ;
 

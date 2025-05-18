@@ -1,6 +1,7 @@
 package com.github.piperweb.domain.model
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
+import com.github.piper.primitives.time.Schedule
 import java.time.LocalDateTime
 import java.util.*
 
@@ -9,5 +10,5 @@ data class Dag(
     val name: String,
     val createdAt: LocalDateTime,
     val status: K8sResourceStatus,
-    val scheduledFor: LocalDateTime,
+    val schedule: Schedule,
 )

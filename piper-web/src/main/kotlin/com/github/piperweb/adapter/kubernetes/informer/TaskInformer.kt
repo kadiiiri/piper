@@ -1,8 +1,7 @@
-package com.github.piperweb.adapter.kubernetes
+package com.github.piperweb.adapter.kubernetes.informer
 
 
 import com.github.piper.kubernetes.crd.TaskResource
-import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import com.github.piperweb.domain.model.Task
 import com.github.piperweb.domain.usecase.CreateTaskUseCase
 import com.github.piperweb.domain.usecase.DeleteTaskUseCase
@@ -49,13 +48,17 @@ class TaskInformer(
                 val task = Task(
                     id = UUID.randomUUID(),
                     name = taskResource.spec.name,
-                    status = K8sResourceStatus.fromString(taskResource.status?.status),
+                    status = taskResource.status!!.status,
                     createdAt = OffsetDateTime.parse(taskResource.metadata.creationTimestamp).toLocalDateTime(),
                     startTime = LocalDateTime.now(),
                     finishedAt = null,
+                    image = taskResource.spec.image,
+                    command = taskResource.spec.command,
                     resources = taskResource.spec.resources,
-                    dagId = findDagByNameUseCase.findByName(taskResource.spec.dagRef!!)?.id,
-                    dependsOn = if (taskResource.spec.dependsOn != null) findTaskByNameUseCase.findByName(taskResource.spec.dependsOn!!) else null
+                    script = taskResource.spec.script!!,
+                    scriptPath = taskResource.spec.scriptPath!!,
+                    dagRef = findDagByNameUseCase.findByName(taskResource.spec.dagRef!!)?.id ?: throw IllegalArgumentException("Dag ${taskResource.spec.dagRef} not found"),
+                    dependsOn = if (taskResource.spec.dependsOn != null) findTaskByNameUseCase.findByName(taskResource.spec.dependsOn!!) else null // TODO: This doesnt work properly -> race condition
                 )
 
                 createTaskUseCase.create(task)

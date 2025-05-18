@@ -1,4 +1,4 @@
-package com.github.piper.domain.task
+package com.github.piper.kubernetes.crd
 
 data class TaskRef(
     val name: String = "",

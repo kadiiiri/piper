@@ -1,7 +1,6 @@
-package com.github.piperweb.adapter.kubernetes
+package com.github.piperweb.adapter.kubernetes.informer
 
 import com.github.piper.kubernetes.crd.DAGResource
-import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import com.github.piperweb.domain.model.Dag
 import com.github.piperweb.domain.usecase.CreateDagUseCase
 import com.github.piperweb.domain.usecase.DeleteDagUseCase
@@ -9,7 +8,6 @@ import com.github.piperweb.domain.usecase.UpdateDagUseCase
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
 import io.fabric8.kubernetes.client.informers.SharedIndexInformer
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.util.*
 import javax.annotation.PostConstruct
@@ -44,8 +42,8 @@ class DagInformer(
                     id = UUID.randomUUID(),
                     name = dagResource.spec.name,
                     createdAt = OffsetDateTime.parse(dagResource.metadata.creationTimestamp).toLocalDateTime(),
-                    status = K8sResourceStatus.fromString(dagResource.status?.status),
-                    scheduledFor = LocalDateTime.now().plusMinutes(30)
+                    status = dagResource.status!!.status,
+                    schedule = dagResource.spec.schedule!!
                 )
                 createDagUseCase.create(dag)
 
@@ -58,8 +56,8 @@ class DagInformer(
                     id = UUID.randomUUID(),
                     name = newDag.spec.name,
                     createdAt = OffsetDateTime.parse(newDag.metadata.creationTimestamp).toLocalDateTime(),
-                    status = K8sResourceStatus.fromString(newDag.status?.status),
-                    scheduledFor = LocalDateTime.now().plusMinutes(30)
+                    status = newDag.status!!.status,
+                    schedule = newDag.spec.schedule!!
                 )
                 updateDagUseCase.update(dag)
             }

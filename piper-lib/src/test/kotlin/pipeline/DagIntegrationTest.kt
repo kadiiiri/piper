@@ -4,7 +4,9 @@ import com.github.piper.dsl.Dag
 import com.github.piper.dsl.k8sParallelTask
 import com.github.piper.dsl.k8sTask
 import com.github.piper.dsl.pipe
-import java.time.Duration
+import com.github.piper.kubernetes.crd.register
+import com.github.piper.primitives.time.Schedule.OneOffSchedule
+import java.time.OffsetDateTime
 import kotlin.test.Test
 import org.junit.jupiter.api.Disabled
 
@@ -12,9 +14,9 @@ class DagIntegrationTest {
 
     @Test
     fun testSimplePipeline() {
+        register()
         val dag = Dag("my-dag") {
-            timeout = Duration.ofHours(2)
-            retries = 3
+            schedule = OneOffSchedule(OffsetDateTime.now().plusSeconds(30))
 
             k8sTask("first") {
                 image = "python"
@@ -22,7 +24,9 @@ class DagIntegrationTest {
                 scriptPath = "src/test/resources/scripts/script1.py"
                 resources {
                     minMemory = 512.0
-                    minCpuCores = 250.0
+                    maxMemory = 1024.0
+                    minCpuCores = 1.0
+                    maxCpuCores = 2.0
                 }
             } pipe k8sTask("fifth") {
                 image = "ubuntu:latest"
@@ -42,8 +46,6 @@ class DagIntegrationTest {
     fun testParallelPipeline() {
 
         val dag = Dag("my_pipeline") {
-            timeout = Duration.ofHours(2)
-            retries = 3
 
             k8sTask("first") {
                 image = "python"
@@ -51,7 +53,9 @@ class DagIntegrationTest {
                 scriptPath = "src/test/resources/scripts/script1.py"
                 resources {
                     minMemory = 512.0
-                    minCpuCores = 250.0
+                    maxMemory = 1024.0
+                    minCpuCores = 1.0
+                    maxCpuCores = 2.0
                 }
             } pipe k8sParallelTask {
 
@@ -62,7 +66,9 @@ class DagIntegrationTest {
                         scriptPath = "src/test/resources/scripts/script2.sh"
                         resources {
                             minMemory = 512.0
-                            minCpuCores = 250.0
+                            maxMemory = 1024.0
+                            minCpuCores = 1.0
+                            maxCpuCores = 2.0
                         }
                     } pipe k8sTask("third") {
                         image = "ubuntu:latest"
@@ -70,7 +76,9 @@ class DagIntegrationTest {
                         scriptPath = "src/test/resources/scripts/script3.sh"
                         resources {
                             minMemory = 512.0
-                            minCpuCores = 250.0
+                            maxMemory = 1024.0
+                            minCpuCores = 1.0
+                            maxCpuCores = 2.0
                         }
                     }
                 }
