@@ -7,6 +7,7 @@ import com.github.piperweb.port.K8sTaskExecutorPort
 import com.github.piperweb.scheduler.data.DagSchedulingContext
 import com.github.piperweb.scheduler.data.toContext
 import java.time.OffsetDateTime
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -17,7 +18,7 @@ class DagScheduler(
     val findTasksByDagUseCase: FindTasksByDagUseCase,
     val k8sTaskExecutor: K8sTaskExecutorPort
 ) {
-    val log = LoggerFactory.getLogger(DagScheduler::class.java)
+    val log: Logger = LoggerFactory.getLogger(DagScheduler::class.java)
 
     @Scheduled(cron = "*/15 * * * * *")
     fun schedule() {
@@ -33,7 +34,12 @@ class DagScheduler(
         contexts
             .filter { it.status == AWAITING_EXECUTION }
             .filter { !it.schedule.nextExecutionTime()!!.isAfter(OffsetDateTime.now()) }
-            .forEach { execute(it) }
+            .forEach { it ->
+                log.info("Scheduling Dag ${it.name} that was scheduled for '${it.schedule.nextExecutionTime()}' " +
+                        "with '${it.tasks.count()}' tasks.")
+
+                execute(it)
+            }
     }
 
     private fun execute(context: DagSchedulingContext) {

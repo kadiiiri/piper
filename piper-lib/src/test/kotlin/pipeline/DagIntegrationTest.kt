@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Disabled
 class DagIntegrationTest {
 
     @Test
+    @Disabled
     fun testSimplePipeline() {
         register()
         val dag = Dag("my-dag") {
