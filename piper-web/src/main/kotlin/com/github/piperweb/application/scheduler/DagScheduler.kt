@@ -1,12 +1,10 @@
-package com.github.piperweb.scheduler
+package com.github.piperweb.application.scheduler
 
-import com.github.piper.primitives.kubernetes.K8sResourceStatus.AWAITING_EXECUTION
-import com.github.piperweb.domain.usecase.FindAllDagsUseCase
-import com.github.piperweb.domain.usecase.FindTasksByDagUseCase
-import com.github.piperweb.port.K8sTaskExecutorPort
-import com.github.piperweb.scheduler.data.DagSchedulingContext
-import com.github.piperweb.scheduler.data.toContext
-import java.time.OffsetDateTime
+import com.github.piperweb.application.dto.request.DagSchedulingContext
+import com.github.piperweb.application.dto.request.toContext
+import com.github.piperweb.application.port.K8sTaskExecutorPort
+import com.github.piperweb.application.usecase.FindAllDagsUseCase
+import com.github.piperweb.application.usecase.FindTasksByDagUseCase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
@@ -26,14 +24,13 @@ class DagScheduler(
         log.info("Start scheduling dags")
 
         val dags = findAllDagsUseCase.findAll()
+            .filter { it.canBeScheduled() }
 
         val contexts = dags.map { dag ->
             dag.toContext(findTasksByDagUseCase.findByDagId(dag.id))
         }
 
         contexts
-            .filter { it.status == AWAITING_EXECUTION }
-            .filter { !it.schedule.nextExecutionTime()!!.isAfter(OffsetDateTime.now()) }
             .forEach { it ->
                 log.info("Scheduling Dag ${it.name} that was scheduled for '${it.schedule.nextExecutionTime()}' " +
                         "with '${it.tasks.count()}' tasks.")

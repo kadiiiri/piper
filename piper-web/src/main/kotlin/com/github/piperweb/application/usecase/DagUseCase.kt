@@ -1,4 +1,4 @@
-package com.github.piperweb.domain.usecase
+package com.github.piperweb.application.usecase
 
 import com.github.piperweb.domain.model.Dag
 import java.util.*

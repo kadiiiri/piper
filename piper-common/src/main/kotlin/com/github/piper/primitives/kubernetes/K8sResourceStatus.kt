@@ -1,12 +1,11 @@
 package com.github.piper.primitives.kubernetes
 
 enum class K8sResourceStatus {
-    ENABLED,
-    DISABLED,
-    DELETED,
-
     AWAITING_EXECUTION,
-    FINISHED,
+    RUNNING,
+    DONE,
+    FAILED,
+
     UNKNOWN
     ;
 

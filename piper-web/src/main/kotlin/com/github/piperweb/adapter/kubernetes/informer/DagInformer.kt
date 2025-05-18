@@ -2,9 +2,9 @@ package com.github.piperweb.adapter.kubernetes.informer
 
 import com.github.piper.kubernetes.crd.DAGResource
 import com.github.piperweb.domain.model.Dag
-import com.github.piperweb.domain.usecase.CreateDagUseCase
-import com.github.piperweb.domain.usecase.DeleteDagUseCase
-import com.github.piperweb.domain.usecase.UpdateDagUseCase
+import com.github.piperweb.application.usecase.CreateDagUseCase
+import com.github.piperweb.application.usecase.DeleteDagUseCase
+import com.github.piperweb.application.usecase.UpdateDagUseCase
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
 import io.fabric8.kubernetes.client.informers.SharedIndexInformer

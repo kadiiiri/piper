@@ -1,6 +1,7 @@
 package com.github.piperweb.domain.model
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
+import com.github.piper.primitives.kubernetes.K8sResourceStatus.DONE
 import com.github.piper.primitives.kubernetes.K8sTaskResources
 import java.time.LocalDateTime
 import java.util.*
@@ -22,4 +23,6 @@ data class Task(
 
     val dagRef: UUID,
     val dependsOn: Task? = null,
-)
+) {
+    fun canExecute(): Boolean = dependsOn?.status == DONE
+}

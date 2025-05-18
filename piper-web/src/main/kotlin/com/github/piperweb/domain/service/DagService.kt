@@ -1,15 +1,15 @@
 package com.github.piperweb.domain.service
 
-import com.github.piperweb.adapter.database.repository.DagRepository
+import com.github.piperweb.application.repository.DagRepository
+import com.github.piperweb.application.usecase.CreateDagUseCase
+import com.github.piperweb.application.usecase.DeleteDagUseCase
+import com.github.piperweb.application.usecase.FindAllDagsUseCase
+import com.github.piperweb.application.usecase.FindDagByIdUseCase
+import com.github.piperweb.application.usecase.FindDagByNameUseCase
+import com.github.piperweb.application.usecase.UpdateDagUseCase
 import com.github.piperweb.domain.mapper.DagMapper.toEntity
 import com.github.piperweb.domain.mapper.DagMapper.toModel
 import com.github.piperweb.domain.model.Dag
-import com.github.piperweb.domain.usecase.CreateDagUseCase
-import com.github.piperweb.domain.usecase.DeleteDagUseCase
-import com.github.piperweb.domain.usecase.FindAllDagsUseCase
-import com.github.piperweb.domain.usecase.FindDagByIdUseCase
-import com.github.piperweb.domain.usecase.FindDagByNameUseCase
-import com.github.piperweb.domain.usecase.UpdateDagUseCase
 import java.util.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

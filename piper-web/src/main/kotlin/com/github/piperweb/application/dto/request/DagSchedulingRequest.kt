@@ -1,4 +1,4 @@
-package com.github.piperweb.scheduler.data
+package com.github.piperweb.application.dto.request
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import com.github.piper.primitives.time.Schedule

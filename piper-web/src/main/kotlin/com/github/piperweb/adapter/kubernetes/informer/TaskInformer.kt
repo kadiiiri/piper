@@ -3,10 +3,10 @@ package com.github.piperweb.adapter.kubernetes.informer
 
 import com.github.piper.kubernetes.crd.TaskResource
 import com.github.piperweb.domain.model.Task
-import com.github.piperweb.domain.usecase.CreateTaskUseCase
-import com.github.piperweb.domain.usecase.DeleteTaskUseCase
-import com.github.piperweb.domain.usecase.FindDagByNameUseCase
-import com.github.piperweb.domain.usecase.FindTaskByNameUseCase
+import com.github.piperweb.application.usecase.CreateTaskUseCase
+import com.github.piperweb.application.usecase.DeleteTaskUseCase
+import com.github.piperweb.application.usecase.FindDagByNameUseCase
+import com.github.piperweb.application.usecase.FindTaskByNameUseCase
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
 import io.fabric8.kubernetes.client.informers.SharedIndexInformer

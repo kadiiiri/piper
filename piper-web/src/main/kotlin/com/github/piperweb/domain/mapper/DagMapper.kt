@@ -2,10 +2,10 @@ package com.github.piperweb.domain.mapper
 
 import com.github.piper.primitives.time.Schedule.OneOffSchedule
 import com.github.piper.primitives.time.Schedule.RecurringSchedule
-import com.github.piperweb.adapter.database.entity.DagEntity
-import com.github.piperweb.adapter.database.entity.ScheduleEntity
-import com.github.piperweb.adapter.database.entity.ScheduleType.CRON
-import com.github.piperweb.adapter.database.entity.ScheduleType.ONE_OFF
+import com.github.piperweb.adapter.persistence.entity.DagEntity
+import com.github.piperweb.adapter.persistence.entity.ScheduleEntity
+import com.github.piperweb.adapter.persistence.entity.ScheduleType.CRON
+import com.github.piperweb.adapter.persistence.entity.ScheduleType.ONE_OFF
 import com.github.piperweb.domain.model.Dag
 
 object DagMapper {

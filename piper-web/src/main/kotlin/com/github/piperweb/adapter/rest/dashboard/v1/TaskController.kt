@@ -1,7 +1,7 @@
-package com.github.piperweb.api.monitor
+package com.github.piperweb.adapter.rest.dashboard.v1
 
+import com.github.piperweb.application.usecase.FindAllTasksUseCase
 import com.github.piperweb.domain.model.Task
-import com.github.piperweb.domain.usecase.FindAllTasksUseCase
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 

@@ -1,17 +1,17 @@
 package com.github.piperweb.domain.service
 
 
-import com.github.piperweb.adapter.database.repository.TaskRepository
+import com.github.piperweb.application.repository.TaskRepository
+import com.github.piperweb.application.usecase.CreateTaskUseCase
+import com.github.piperweb.application.usecase.DeleteTaskUseCase
+import com.github.piperweb.application.usecase.FindAllTasksUseCase
+import com.github.piperweb.application.usecase.FindTaskByIdUseCase
+import com.github.piperweb.application.usecase.FindTaskByNameUseCase
+import com.github.piperweb.application.usecase.FindTasksByDagUseCase
+import com.github.piperweb.application.usecase.UpdateTaskUseCase
 import com.github.piperweb.domain.mapper.TaskMapper.toEntity
 import com.github.piperweb.domain.mapper.TaskMapper.toModel
 import com.github.piperweb.domain.model.Task
-import com.github.piperweb.domain.usecase.CreateTaskUseCase
-import com.github.piperweb.domain.usecase.DeleteTaskUseCase
-import com.github.piperweb.domain.usecase.FindAllTasksUseCase
-import com.github.piperweb.domain.usecase.FindTaskByIdUseCase
-import com.github.piperweb.domain.usecase.FindTaskByNameUseCase
-import com.github.piperweb.domain.usecase.FindTasksByDagUseCase
-import com.github.piperweb.domain.usecase.UpdateTaskUseCase
 import java.util.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

@@ -1,4 +1,4 @@
-package com.github.piperweb.port
+package com.github.piperweb.application.port
 
 import com.github.piperweb.domain.model.Task
 

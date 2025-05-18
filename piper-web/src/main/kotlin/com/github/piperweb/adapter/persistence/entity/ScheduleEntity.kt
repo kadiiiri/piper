@@ -1,4 +1,4 @@
-package com.github.piperweb.adapter.database.entity
+package com.github.piperweb.adapter.persistence.entity
 
 import com.github.piper.primitives.time.Schedule
 import com.github.piper.primitives.time.Schedule.OneOffSchedule

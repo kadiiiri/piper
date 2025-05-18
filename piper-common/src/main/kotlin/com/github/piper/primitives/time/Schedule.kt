@@ -22,7 +22,7 @@ sealed interface Schedule {
      * @property start The date and time when the task should be executed
      */
     class OneOffSchedule(val start: OffsetDateTime) : Schedule {
-        override fun nextExecutionTime(): OffsetDateTime? = start
+        override fun nextExecutionTime(): OffsetDateTime = start
     }
 
     /**

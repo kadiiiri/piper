@@ -1,4 +1,4 @@
-package com.github.piperweb.adapter.kubernetes.executor.task
+package com.github.piperweb.application.dto.request
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import com.github.piper.primitives.kubernetes.K8sTaskResources
@@ -6,7 +6,7 @@ import com.github.piperweb.domain.model.Task
 import java.time.LocalDateTime
 import java.util.*
 
-data class TaskExecutionContext(
+data class TaskExecutionRequest(
     val id: UUID,
     val name: String,
     val createdAt: LocalDateTime,

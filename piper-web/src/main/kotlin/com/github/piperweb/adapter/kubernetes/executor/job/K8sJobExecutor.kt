@@ -2,6 +2,7 @@ package com.github.piperweb.adapter.kubernetes.executor.job
 
 import com.github.piper.kubernetes.KubernetesDefaults.NAMESPACE
 import com.github.piperweb.adapter.kubernetes.informer.DagInformer
+import com.github.piperweb.application.port.K8sJobExecutorPort
 import io.fabric8.kubernetes.api.model.ConfigMap
 import io.fabric8.kubernetes.api.model.batch.v1.Job
 import io.fabric8.kubernetes.client.KubernetesClient
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service
 @Service
 class K8sJobExecutor(
     val client: KubernetesClient
-) {
+): K8sJobExecutorPort {
     private val log = LoggerFactory.getLogger(DagInformer::class.java)
 
-    fun execute(executorRequest: ExecutorRequest) {
+    override fun execute(executorRequest: ExecutorRequest) {
 
         val job = executorRequest.build()
 

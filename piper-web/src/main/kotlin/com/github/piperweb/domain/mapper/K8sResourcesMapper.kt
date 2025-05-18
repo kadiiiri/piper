@@ -1,7 +1,7 @@
 package com.github.piperweb.domain.mapper
 
 import com.github.piper.primitives.kubernetes.K8sTaskResources
-import com.github.piperweb.adapter.database.entity.K8sResourcesEntity
+import com.github.piperweb.adapter.persistence.entity.K8sResourcesEntity
 
 object K8sResourcesMapper {
 

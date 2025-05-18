@@ -1,4 +1,4 @@
-package com.github.piperweb.adapter.database.entity
+package com.github.piperweb.adapter.persistence.entity
 
 import com.github.piper.primitives.kubernetes.K8sResourceStatus
 import jakarta.persistence.CascadeType.ALL
