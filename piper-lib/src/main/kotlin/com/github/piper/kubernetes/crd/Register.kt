@@ -11,7 +11,7 @@ fun register() {
 
 private fun registerDAGResourceDefinition() {
     val client = KubernetesClientBuilder().build()
-    val crdYamlPath = Paths.get("build/resources/main/dagresources.piper.eska.com-v1.yml")
+    val crdYamlPath = Paths.get("build/resources/main/dagresources.piper.github.com-v1.yml")
 
     if (Files.exists(crdYamlPath)) {
         val crdYaml = Files.readString(crdYamlPath)
@@ -24,7 +24,7 @@ private fun registerDAGResourceDefinition() {
 
 private fun registerTaskResourceDefinition() {
     val client = KubernetesClientBuilder().build()
-    val crdYamlPath = Paths.get("build/resources/main/taskresources.piper.eska.com-v1.yml")
+    val crdYamlPath = Paths.get("build/resources/main/taskresources.piper.github.com-v1.yml")
 
     if (Files.exists(crdYamlPath)) {
         val crdYaml = Files.readString(crdYamlPath)

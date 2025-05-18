@@ -6,7 +6,7 @@ import io.fabric8.kubernetes.model.annotation.Group
 import io.fabric8.kubernetes.model.annotation.Version
 
 
-@Group("piper.eska.com")
+@Group("piper.github.com")
 @Version("v1alpha1")
 class TaskResource: CustomResource<TaskSpec, TaskStatus>()
 
