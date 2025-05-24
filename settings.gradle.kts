@@ -1,5 +1,5 @@
 pluginManagement {
-    val kotlinVersion = "2.1.20"
+    val kotlinVersion = "2.1.21"
 
     plugins {
         kotlin("jvm") version kotlinVersion
@@ -8,7 +8,7 @@ pluginManagement {
 
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 rootProject.name = "piper"

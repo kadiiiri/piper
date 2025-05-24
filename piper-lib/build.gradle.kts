@@ -27,8 +27,8 @@ dependencies {
 
 buildscript {
     dependencies {
-        classpath("io.fabric8:crd-generator-api-v2:7.0.0")
-        classpath("io.fabric8:crd-generator-collector:7.0.0")
+        classpath("io.fabric8:crd-generator-api-v2:7.3.1")
+        classpath("io.fabric8:crd-generator-collector:7.3.1")
     }
 }
 
