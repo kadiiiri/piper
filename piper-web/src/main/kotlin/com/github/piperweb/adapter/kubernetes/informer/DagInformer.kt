@@ -1,16 +1,16 @@
 package com.github.piperweb.adapter.kubernetes.informer
 
 import com.github.piper.kubernetes.crd.DAGResource
-import com.github.piperweb.domain.model.Dag
 import com.github.piperweb.application.usecase.CreateDagUseCase
 import com.github.piperweb.application.usecase.DeleteDagUseCase
 import com.github.piperweb.application.usecase.UpdateDagUseCase
+import com.github.piperweb.domain.model.Dag
 import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.kubernetes.client.informers.ResourceEventHandler
 import io.fabric8.kubernetes.client.informers.SharedIndexInformer
+import jakarta.annotation.PostConstruct
 import java.time.OffsetDateTime
 import java.util.*
-import javax.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 

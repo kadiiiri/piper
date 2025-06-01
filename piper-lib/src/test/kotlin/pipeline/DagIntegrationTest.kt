@@ -4,7 +4,6 @@ import com.github.piper.dsl.Dag
 import com.github.piper.dsl.k8sParallelTask
 import com.github.piper.dsl.k8sTask
 import com.github.piper.dsl.pipe
-import com.github.piper.kubernetes.crd.register
 import com.github.piper.primitives.time.Schedule.OneOffSchedule
 import java.time.OffsetDateTime
 import kotlin.test.Test
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Disabled
 class DagIntegrationTest {
 
     @Test
-    @Disabled
     fun testSimplePipeline() {
-        register()
+//        register()
         val dag = Dag("my-dag") {
             schedule = OneOffSchedule(OffsetDateTime.now().plusSeconds(30))
 

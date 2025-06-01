@@ -12,6 +12,8 @@ plugins {
 group = "com.github.piper"
 version = "unspecified"
 
+
+
 val kubernetesVersion: String by rootProject.extra
 val kotlinLoggingVersion: String by rootProject.extra
 val kotlinCoroutinesVersion: String by rootProject.extra
@@ -26,9 +28,11 @@ dependencies {
 }
 
 buildscript {
+    val kubernetesVersion: String by rootProject.extra
+
     dependencies {
-        classpath("io.fabric8:crd-generator-api-v2:7.3.1")
-        classpath("io.fabric8:crd-generator-collector:7.3.1")
+        classpath("io.fabric8:crd-generator-api-v2:$kubernetesVersion")
+        classpath("io.fabric8:crd-generator-collector:$kubernetesVersion")
     }
 }
 

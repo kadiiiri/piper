@@ -24,5 +24,5 @@ data class Task(
     val dagRef: UUID,
     val dependsOn: Task? = null,
 ) {
-    fun canExecute(): Boolean = dependsOn?.status == DONE
+    fun canExecute(): Boolean = dependsOn == null || dependsOn.status == DONE
 }

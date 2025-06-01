@@ -7,21 +7,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.module.SimpleModule
 import com.github.piper.primitives.time.Schedule.OneOffSchedule
 import com.github.piper.primitives.time.Schedule.RecurringSchedule
 import java.time.OffsetDateTime
 
-/**
- * Jackson module for serializing and deserializing Schedule objects.
- * This module registers custom serializers and deserializers for the Schedule sealed interface.
- */
-class ScheduleJacksonModule : SimpleModule() {
-    init {
-        addSerializer(Schedule::class.java, ScheduleSerializer())
-        addDeserializer(Schedule::class.java, ScheduleDeserializer())
-    }
-}
 
 /**
  * Custom serializer for the Schedule sealed interface.
@@ -57,7 +46,7 @@ class ScheduleDeserializer : JsonDeserializer<Schedule>() {
         return when (val type = node.get("type")?.asText()) {
             "oneOff" -> {
                 val start = node.get("start")?.let {
-                    ctxt.readTreeAsValue(it, OffsetDateTime::class.java)
+                    OffsetDateTime.parse(it.asText())
                 } ?: throw IllegalArgumentException("OneOffSchedule requires a 'start' field")
 
                 OneOffSchedule(start)
